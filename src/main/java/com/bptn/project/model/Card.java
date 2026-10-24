@@ -1,7 +1,9 @@
 package com.bptn.project.model;
 
-
+import com.bptn.project.exception.ValidationException;
 import com.bptn.project.model.template.CardTemplate;
+import com.bptn.project.util.InputValidator;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.UUID;
  * A greeting card: who it is for, what template it uses, and the signatures
  * people have added to it.
  */
+
 public class Card {
 
     private final String id;
@@ -41,17 +44,16 @@ public class Card {
         return recipientName;
     }
 
-    // Validate
     public final void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+        this.recipientName = InputValidator.requireName(recipientName);
     }
 
     public int getAge() {
         return age;
     }
 
-    //Validate  
     public final void setAge(int age) {
+    	InputValidator.checkAge(age);
         this.age = age;
     }
 
@@ -59,9 +61,9 @@ public class Card {
         return occasion;
     }
 
-    //Validate    
     public final void setOccasion(String occasion) {
-        this.occasion = occasion;
+        this.occasion = InputValidator.requireText(
+                occasion, "Occasion", InputValidator.MAX_OCCASION_LENGTH);;
     }
 
     public CardTemplate getTemplate() {
@@ -90,8 +92,11 @@ public class Card {
         return signatures.remove(index);
     }
 
-    // Validate   
     private void checkSignatureIndex(int index) {
+    	 if (index < 0 || index >= signatures.size()) {
+             throw new ValidationException(
+                 "Signature number must be between 1 and " + signatures.size() + ".");
+         }
     }
 
     @Override
@@ -116,4 +121,3 @@ public class Card {
             + signatures.size() + " signature(s))";
     }
 }
-
