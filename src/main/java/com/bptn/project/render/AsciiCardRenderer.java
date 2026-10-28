@@ -3,6 +3,7 @@ package com.bptn.project.render;
 import com.bptn.project.model.Card;
 import com.bptn.project.model.Signature;
 import com.bptn.project.model.template.CardTemplate;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * Renders a card as ASCII text inside a border defined by its template.
  * Every emitted line is exactly the template width.
  */
-public class AsciiCardRenderer  {
+public class AsciiCardRenderer implements CardRenderer  {
 
     private static final int SIGNATURE_PREFIX = 4; // "  - " / "    "
 
