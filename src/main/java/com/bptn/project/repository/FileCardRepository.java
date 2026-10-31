@@ -91,8 +91,10 @@ public class FileCardRepository implements CardRepository {
         lines.add("id=" + card.getId());
         lines.add("template=" + TemplateCatalog.keyOf(card.getTemplate()));
         lines.add("recipient=" + escape(card.getRecipientName()));
-        lines.add("age=" + card.getAge());
         lines.add("occasion=" + escape(card.getOccasion()));
+        if(card.getOccasion().toLowerCase().contains("birthday")) {
+        	lines.add("age=" + card.getAge());
+        }
         for (Signature s : card.getSignatures()) {
             lines.add("sig=" + escape(s.getSignerName()) + "|" + escape(s.getWish()));
         }
@@ -110,7 +112,7 @@ public class FileCardRepository implements CardRepository {
         String templateKey = null;
         String recipient = null;
         String occasion = "Birthday";
-        int age = 0;
+        Integer age = null;
         List<Signature> signatures = new ArrayList<>();
         try {
             for (String line : lines) {

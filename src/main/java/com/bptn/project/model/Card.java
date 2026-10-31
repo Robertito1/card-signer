@@ -19,23 +19,33 @@ public class Card {
 
     private final String id;
     private String recipientName;
-    private int age;
+    private Integer age;
     private String occasion;
     private final CardTemplate template;
     private final List<Signature> signatures = new ArrayList<>();
 
-    public Card(String recipientName, int age, String occasion, CardTemplate template) {
+    public Card(String recipientName, Integer age, String occasion, CardTemplate template) {
         this(UUID.randomUUID().toString(), recipientName, age, occasion, template);
     }
 
-    public Card(String id, String recipientName, int age, String occasion, CardTemplate template) {
+    public Card(String id, String recipientName, Integer age, String occasion, CardTemplate template) {
         this.id = Objects.requireNonNull(id, "id must not be null");
         this.template = Objects.requireNonNull(template, "template must not be null");
         setRecipientName(recipientName);
         setAge(age);
         setOccasion(occasion);
     }
+    
+    public Card(String recipientName, String occasion, CardTemplate template) {
+        this(UUID.randomUUID().toString(), recipientName, occasion, template);
+    }
 
+    public Card(String id, String recipientName, String occasion, CardTemplate template) {
+        this.id = Objects.requireNonNull(id, "id must not be null");
+        this.template = Objects.requireNonNull(template, "template must not be null");
+        setRecipientName(recipientName);
+        setOccasion(occasion);
+    }
     public String getId() {
         return id;
     }
@@ -48,11 +58,11 @@ public class Card {
         this.recipientName = InputValidator.requireName(recipientName);
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return age;
     }
 
-    public final void setAge(int age) {
+    public final void setAge(Integer age) {
     	InputValidator.checkAge(age);
         this.age = age;
     }
@@ -117,7 +127,11 @@ public class Card {
 
     @Override
     public String toString() {
-        return recipientName + " (turning " + age + ", " + occasion + ", "
+    	
+        return this.occasion.toLowerCase().contains("birthday") ?
+    		recipientName + "(turning " + age + ", " + occasion + ", "
+            + signatures.size() + " signature(s))" :
+            recipientName + " (on their " + ", " + occasion + ", "
             + signatures.size() + " signature(s))";
     }
 }

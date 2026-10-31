@@ -48,7 +48,7 @@ public class Menu {
     }
 
     public void run() {
-        out.println("=== Local Birthday Card & Message Signer ===");
+        out.println("=== Local Complementary/Birthday Card & Message Signer ===");
         boolean running = true;
         while (running) {
             printMenu();
@@ -97,17 +97,25 @@ public class Menu {
     }
 
     private void createCard() {
+    	Card card;
         out.println("-- Choose a template --");
         for (int i = 0; i < templates.size(); i++) {
             out.println((i + 1) + ". " + templates.get(i).getName());
         }
+        Integer age = null;
         int choice = ask("Template number: ",
             raw -> InputValidator.parseChoice(raw, templates.size()));
         String name = ask("Recipient name: ", InputValidator::requireName);
-        int age = ask("Turning age: ", InputValidator::parseAge);
         String occasion = ask("Occasion: ",
-            raw -> InputValidator.requireText(raw, "Occasion", InputValidator.MAX_OCCASION_LENGTH));
-        Card card = new Card(name, age, occasion, templates.get(choice - 1));
+                raw -> InputValidator.requireText(raw, "Occasion", InputValidator.MAX_OCCASION_LENGTH));
+        if(occasion.toLowerCase().contains("birthday")) {
+            age = ask("Turning age: ", InputValidator::parseAge);
+        }
+        if (age != null) {
+            card = new Card(name, age, occasion, templates.get(choice - 1));
+        } else {
+            card = new Card(name, occasion, templates.get(choice- 1));
+        }
         repository.save(card);
         out.println("Card created for " + card.getRecipientName() + ".");
     }
@@ -229,8 +237,13 @@ public class Menu {
     }
 
     private String describe(Card card) {
-        return card.getRecipientName() + " - turning " + card.getAge()
+    	if(card.getAge() != null) {
+    		return card.getRecipientName() + " - turning " + card.getAge()
             + " (" + card.getOccasion() + "), "
+            + card.getSignatures().size() + " signature(s), "
+            + card.getTemplate().getName();
+        }
+        return card.getRecipientName() + " - for their " + card.getOccasion() + 
             + card.getSignatures().size() + " signature(s), "
             + card.getTemplate().getName();
     }

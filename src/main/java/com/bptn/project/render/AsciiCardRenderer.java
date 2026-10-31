@@ -29,6 +29,17 @@ public class AsciiCardRenderer implements CardRenderer  {
         for (String text : wrap("To: " + card.getRecipientName(), inner - 1)) {
             line(out, template, " " + text);
         }
+        if (card.getAge() != null) {
+        	for (String text : wrap(
+                    "Turning " + card.getAge() + "  (" + card.getOccasion() + ")", inner - 1)) {
+                    line(out, template, " " + text);
+             }
+        } else {
+        	for (String text : wrap(
+                    "For their " + "  (" + card.getOccasion() + ")", inner - 1)) {
+                    line(out, template, " " + text);
+             }
+        }
         for (String text : wrap(
             "Turning " + card.getAge() + "  (" + card.getOccasion() + ")", inner - 1)) {
             line(out, template, " " + text);
