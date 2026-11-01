@@ -40,10 +40,6 @@ public class AsciiCardRenderer implements CardRenderer  {
                     line(out, template, " " + text);
              }
         }
-        for (String text : wrap(
-            "Turning " + card.getAge() + "  (" + card.getOccasion() + ")", inner - 1)) {
-            line(out, template, " " + text);
-        }
         line(out, template, "");
         line(out, template, " Wishes:");
         if (card.getSignatures().isEmpty()) {

@@ -238,13 +238,13 @@ public class Menu {
 
     private String describe(Card card) {
     	if(card.getAge() != null) {
-    		return card.getRecipientName() + " - turning " + card.getAge()
-            + " (" + card.getOccasion() + "), "
+    		return card.getRecipientName() + " - Turning " + card.getAge()
+    		+ " "+ card.getOccasion() + ", "
             + card.getSignatures().size() + " signature(s), "
             + card.getTemplate().getName();
         }
-        return card.getRecipientName() + " - for their " + card.getOccasion() + 
-            + card.getSignatures().size() + " signature(s), "
+        return card.getRecipientName() + " - For their " + card.getOccasion() + 
+        	", " + card.getSignatures().size() + " signature(s), "
             + card.getTemplate().getName();
     }
 

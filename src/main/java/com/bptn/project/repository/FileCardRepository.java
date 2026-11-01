@@ -108,6 +108,7 @@ public class FileCardRepository implements CardRepository {
         } catch (IOException e) {
             throw new UncheckedIOException("Could not read card file " + file, e);
         }
+        Card card;
         String id = null;
         String templateKey = null;
         String recipient = null;
@@ -132,12 +133,20 @@ public class FileCardRepository implements CardRepository {
                     default -> { /* ignore unknown keys for forward compatibility */ }
                 }
             }
-            Card card = new Card(
-                require(id, "id", file),
-                require(recipient, "recipient", file),
-                age,
-                occasion,
-                TemplateCatalog.byKey(require(templateKey, "template", file)));
+            if(age != null) {
+             card = new Card(
+                    require(id, "id", file),
+                    require(recipient, "recipient", file),
+                    age,
+                    occasion,
+                    TemplateCatalog.byKey(require(templateKey, "template", file)));
+            } else {
+            	card = new Card(
+                    require(id, "id", file),
+                    require(recipient, "recipient", file),
+                    occasion,
+                    TemplateCatalog.byKey(require(templateKey, "template", file)));
+            } 
             signatures.forEach(card::addSignature);
             return card;
         } catch (RuntimeException e) {
