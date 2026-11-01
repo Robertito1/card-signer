@@ -8,7 +8,7 @@ to a `.txt` file. Cards are saved to disk, so they persist between runs.
 ## Features
 
 - Choose a card template (Classic Birthday, Balloon Party, or Elegant) and enter
-  recipient details: name, turning age, and occasion.
+  recipient details: name, turning age (Only in case of birthday cards), and occasion.
 - Keep cards persistent on disk; each card is stored as its own file.
 - Add signatures (signer name and wish) to any card, as many as you need.
 - Edit or remove individual signatures on a card.
@@ -51,7 +51,7 @@ No external services or API keys are required.
 1. **Clone the repository**
 
    ```bash
-   git clone <repo-url>
+   git clone [<repo-url>](https://github.com/Robertito1/card-signer.git)
    ```
 
 2. **Import the project**
@@ -91,8 +91,7 @@ relative to the directory the application is started from.
 
 ## Running tests
 
-There are currently no unit tests in the project (there is no `src/test`
-directory). The pom includes JUnit 5 dependencies, so tests can be added under
+The pom includes JUnit 5 dependencies, so tests can be added under
 `src/test/java` and run in the IDE with **Run As → JUnit Test**, or with
 `mvn test`.
 
@@ -104,11 +103,6 @@ directory). The pom includes JUnit 5 dependencies, so tests can be added under
 - The data and export folders are created automatically the first time they are needed.
 - The pom declares a PostgreSQL driver dependency, but the application does not
   use a database. Data is stored in files only.
-
-## Contributing
-
-Pull requests are welcome! For major changes, please open an issue first to
-discuss what you would like to change.
 
 ## License
 
