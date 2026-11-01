@@ -51,7 +51,7 @@ No external services or API keys are required.
 1. **Clone the repository**
 
    ```bash
-   git clone [<repo-url>](https://github.com/Robertito1/card-signer.git)
+   git clone https://github.com/Robertito1/card-signer.git
    ```
 
 2. **Import the project**
