@@ -101,6 +101,7 @@ public class FileCardRepository implements CardRepository {
         return lines;
     }
 
+    // Reads the card from the cards data store and returns a Card object
     private Card load(Path file) {
         List<String> lines;
         try {
@@ -154,6 +155,7 @@ public class FileCardRepository implements CardRepository {
         }
     }
 
+   // Ensures non-empty values for the id and the name of the recipient
     private String require(String value, String field, Path file) {
         if (value == null) {
             throw new IllegalArgumentException("Missing " + field + " in " + file);
@@ -182,6 +184,7 @@ public class FileCardRepository implements CardRepository {
         return out.toString();
     }
 
+    
     private static String unescape(String value) {
         List<String> parts = splitEscaped(value);
         return parts.isEmpty() ? "" : parts.get(0);

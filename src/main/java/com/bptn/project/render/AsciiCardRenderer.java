@@ -14,7 +14,10 @@ import java.util.List;
 public class AsciiCardRenderer implements CardRenderer  {
 
     private static final int SIGNATURE_PREFIX = 4; // "  - " / "    "
-
+    /**
+     * Main Render method, uses the template to render card and also calls the
+     * RenderSignatures method which loops through the signatures and renders them
+     */
     public String render(Card card) {
         CardTemplate template = card.getTemplate();
         int inner = template.getWidth() - 2;
@@ -54,6 +57,7 @@ public class AsciiCardRenderer implements CardRenderer  {
         return out.toString();
     }
 
+    /** Renders signatures/wishes on the card */
     private void renderSignature(
         StringBuilder out, CardTemplate template, Signature signature, int inner) {
         String text = signature.getSignerName() + ": " + signature.getWish();

@@ -47,6 +47,7 @@ public class Menu {
         this.templates = List.copyOf(templates);
     }
 
+    // Menu entry point, this method gets called at the start of the application
     public void run() {
         out.println("=== Local Complementary/Birthday Card & Message Signer ===");
         boolean running = true;
@@ -96,6 +97,7 @@ public class Menu {
         return true;
     }
 
+    // Enables the feature of card creation   
     private void createCard() {
     	Card card;
         out.println("-- Choose a template --");
@@ -120,6 +122,7 @@ public class Menu {
         out.println("Card created for " + card.getRecipientName() + ".");
     }
 
+    //Uses the describe method below to list cards on the console
     private void listCards() {
         List<Card> cards = repository.findAll();
         if (cards.isEmpty()) {
@@ -131,6 +134,7 @@ public class Menu {
         }
     }
 
+    //Renders card to the console  
     private void previewCard() {
         Card card = pickCard();
         if (card != null) {
@@ -139,6 +143,7 @@ public class Menu {
         }
     }
 
+    //Enables adding a Signature using the Card object method
     private void signCard() {
         Card card = pickCard();
         if (card == null) {
@@ -152,6 +157,7 @@ public class Menu {
         out.println("Signature added for " + card.getRecipientName() + ".");
     }
 
+    //Enables Signature update using the Card object method
     private void editSignature() {
         Card card = pickCard();
         if (card == null) {
@@ -168,6 +174,7 @@ public class Menu {
         out.println("Signature updated.");
     }
 
+    //Enables Signature deletion using the Card object method
     private void removeSignature() {
         Card card = pickCard();
         if (card == null) {
@@ -182,6 +189,7 @@ public class Menu {
         out.println("Signature removed.");
     }
 
+    //Uses the repository to delete card
     private void deleteCard() {
         Card card = pickCard();
         if (card == null) {
@@ -198,6 +206,7 @@ public class Menu {
         }
     }
 
+    //Uses the exporter to export card to a .txt file
     private void exportCard() {
         Card card = pickCard();
         if (card == null) {
@@ -236,6 +245,7 @@ public class Menu {
             raw -> InputValidator.parseChoice(raw, signatures.size())) - 1;
     }
 
+    // Used for listing the cards on the console
     private String describe(Card card) {
     	if(card.getAge() != null) {
     		return card.getRecipientName() + " - Turning " + card.getAge()

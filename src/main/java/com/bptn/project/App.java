@@ -20,10 +20,18 @@ import com.bptn.project.ui.Menu;
 public class App {
 
     public static void main(String[] args) {
+    	//Repository is instantiated using the Path /data/cards/ as the data store	
         CardRepository repository = new FileCardRepository(Path.of("data", "cards"));
+        
         CardRenderer renderer = new AsciiCardRenderer();
+        
+        // Exports Object instantiated using the /exports folder as the location to store .txt cards
         CardExporter exporter = new CardExporter(Path.of("exports"), renderer);
+        
+        //Single input is used for the entire application
         InputProvider input = new ConsoleInput(System.in, System.out);
+        
+        //Menu is instantiated with all the required dependencies
         Menu menu = new Menu(
             repository, renderer, exporter, input, System.out, TemplateCatalog.all());
         menu.run();
